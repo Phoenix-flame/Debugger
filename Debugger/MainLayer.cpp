@@ -103,7 +103,7 @@ void MainLayer::OnImGuiRender(){
         ImGui::Separator();
         int id = 0;
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Bullet;
-        for (auto p:Application::s_TimeContainer){
+        for (auto p:Worker::s_TimeProfiles){
             ImGui::PushID(id++);
             ImGui::AlignTextToFramePadding();
             ImGui::Text((p.first).c_str());

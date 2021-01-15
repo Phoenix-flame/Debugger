@@ -53,14 +53,12 @@ public:
         while(true){
             unsigned int size = this->m_Socket->recv(this->incoming_buffer, MAX_INCOMING_PACKET_SIZE);
             this->m_Packet.ParseFromArray(this->incoming_buffer, size);
-            // std::vector<Variables> variables;
             for (auto f:this->m_Packet.variables()){
-                PHX_TRACE("{0}: {1}", f.name(), f.value());
-                // variables.push_back({f.name(), f.value()});
                 s_FloatVars[f.name()] = f.value();
             }
-            // s_Fifo->Push(variables);
-
+            for (auto p:m_Packet.profiles()){
+                s_TimeProfiles[p.name()] = p.value();
+            }
         }
     }
 
@@ -71,5 +69,6 @@ private:
 
 public:
     static std::map<std::string, float> s_FloatVars;
+    static std::map<std::string, unsigned int> s_TimeProfiles;
     static Ref<FIFO<std::vector<Variables>>> s_Fifo;
 };
